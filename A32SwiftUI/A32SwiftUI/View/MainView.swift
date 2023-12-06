@@ -17,8 +17,8 @@ struct MainView: View {
     
     // MARK: - body
     var body: some View {
+        
         NavigationStack {
-            
             if !clearChat {
                 ChatView(showDetailScreen: $showDetailScreen)
             }else {
@@ -26,54 +26,63 @@ struct MainView: View {
                 Text("Chat is Clear").font(.title)
                 Spacer()
             }
-
-            Button("Clear Chat") { 
-                clearChat = true
-            }
-            .frame(width: 220, height: 44)
-            .background(.customButton)
-            .clipShape(RoundedRectangle(cornerRadius: 7))
-            .fontWeight(.bold)
-            .foregroundStyle(.white)
             
-            .navigationTitle("chat")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Reset") { clearChat = false }
-                }
+            clearChatButton
+        }
+    }
+     
+}
+
+// MARK: - Extracted Views
+extension MainView {
+    
+    private var clearChatButton: some View {
+        Button("Clear Chat") {
+            clearChat = true
+        }
+        .frame(width: 220, height: 44)
+        .background(.customButton)
+        .clipShape(RoundedRectangle(cornerRadius: 7))
+        .fontWeight(.bold)
+        .foregroundStyle(.white)
+        
+        .navigationTitle("chat")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Reset") { clearChat = false }
             }
         }
-        
-      
-        
     }
-    
-    
-    
-    
 }
+
 
 
 // MARK: - ChatView
 struct ChatView: View {
     
     @Binding var showDetailScreen: Bool
+    @State private var selectedPerson: Person? = nil
     
+    // MARK: - Body
     var body: some View {
-        List(Person.initial) { person in
-            PersonView(
-                image: person.image,
-                name: person.name,
-                message: person.message,
-                time: person.time
-            )
-        }
-        .onTapGesture {
-            showDetailScreen.toggle()
+        
+        List {
+            ForEach(Person.initial) { person in
+                PersonView(
+                    image: person.image,
+                    name: person.name,
+                    message: person.message,
+                    time: person.time
+                )
+                .onTapGesture {
+                    selectedPerson = person
+                    showDetailScreen.toggle()
+                }
+            }
         }
         .fullScreenCover(isPresented: $showDetailScreen) {
-            PersonDetailView()
+            PersonDetailView(person: $selectedPerson)
         }
     }
 }
@@ -82,11 +91,13 @@ struct ChatView: View {
 // MARK: - PersonView
 struct PersonView: View {
     
+    // MARK: - Properties
     let image: Image
     let name: String
     let message: String
     let time: String
     
+    // MARK: - Body
     var body: some View {
         HStack {
             image
