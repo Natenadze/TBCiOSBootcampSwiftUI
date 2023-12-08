@@ -30,7 +30,56 @@ struct ToDoMainView: View {
     
     // MARK: - Body
     var body: some View {
-        Text("Hello, World!")
+        ZStack {
+            Color.black
+                .ignoresSafeArea()
+            VStack {
+                HStack {
+                    Text("You have 3 tasks to complete")
+                        .foregroundStyle(.white)
+                        .font(.title)
+                        .fontWeight(.bold)
+                    
+                    Spacer()
+                    
+                    Image("joni")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 50, height: 50)
+                        .clipShape(.circle)
+                        .overlay(alignment: .bottomTrailing) {
+                            Text("3")
+                                .foregroundStyle(.white)
+                                .font(.caption)
+                                .frame(width: 15, height: 15)
+                                .background(.orange)
+                                .clipShape(Circle())
+                        }
+                }
+                
+                Button("Complete All") {
+                   //TODO: - ???
+                }
+                .font(.title3)
+                .fontWeight(.semibold)
+                .foregroundStyle(.white)
+                .frame(height: 50)
+                .frame(maxWidth: .infinity)
+                .background(
+                    LinearGradient(colors: [.start, .finish], startPoint: .leading, endPoint: .trailing)
+                )
+                .clipShape(RoundedRectangle(cornerRadius: 5))
+                
+                ProgressView()
+                
+                TaskView(task: .init(title: "Prepare Wireframe for Main Flow", date: "4 Oct", isCompleted: true))
+                TaskView(task: .init(title: "Prepare Research", date: "12 Nov", isCompleted: false))   
+                TaskView(task: .init(title: "Prepare Wireframe for Main Flow", date: "4 Oct", isCompleted: true))
+                TaskView(task: .init(title: "Prepare Research", date: "12 Nov", isCompleted: false))
+            }
+            
+        }
+        
     }
     
 }

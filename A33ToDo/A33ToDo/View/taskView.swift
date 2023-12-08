@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct taskView: View {
+struct TaskView: View {
     
     // MARK: - Properties
     let task: ToDoModel
@@ -49,7 +49,8 @@ struct taskView: View {
 // MARK: - Preview
 #Preview {
     Group {
-        taskView(task: .init(title: "Prepare Wireframe for Main Flow", date: "4 Oct", isCompleted: true))
-        taskView(task: .init(title: "Prepare Research", date: "12 Nov", isCompleted: false))
+        TaskView(task: .init(title: "Prepare Wireframe for Main Flow", date: "4 Oct", isCompleted: true))
+        TaskView(task: .init(title: "Prepare Research", date: "12 Nov", isCompleted: false))
     }
+    .preferredColorScheme(.dark)
 }
