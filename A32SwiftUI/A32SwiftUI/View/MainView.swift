@@ -80,10 +80,12 @@ struct ChatView: View {
                     showDetailScreen.toggle()
                 }
             }
+            .preferredColorScheme(.dark)
         }
         .fullScreenCover(isPresented: $showDetailScreen) {
             PersonDetailView(person: $selectedPerson)
         }
+        
     }
 }
 
