@@ -11,9 +11,9 @@ import SwiftUI
 struct ProgressView: View {
     
     // MARK: - properties
-    @State private var progressValue: Float = 0.5
-    @State private var progressPercent = 50
-    @State private var completedTasks = "3/6"
+    var progressValue: Float
+    var progressPercent: Int
+    var completedTasks: String
     
     // MARK: - body
     var body: some View {
@@ -24,11 +24,9 @@ struct ProgressView: View {
             
             VStack(alignment: .leading,spacing: 10) {
                 Text("Daily Task")
-                    .foregroundStyle(.white)
                     .font(.title3) 
                 
                 Text("\(completedTasks) Task Completed")
-                    .foregroundStyle(.white)
                     .font(.title3)
                 
                 HStack {
@@ -38,10 +36,11 @@ struct ProgressView: View {
                         .padding(.trailing)
                 }
                 
-                ProgressBar(progress: $progressValue)
+                ProgressBar(progress: progressValue)
                     .frame(height: 10)
                     
             }
+            .foregroundStyle(.white)
             .padding()
             .background(.taskView)
         }
@@ -51,7 +50,7 @@ struct ProgressView: View {
 
 // MARK: - Progress Bar
 struct ProgressBar: View {
-    @Binding var progress: Float
+    var progress: Float
 
     var body: some View {
         GeometryReader { geometry in
@@ -71,7 +70,7 @@ struct ProgressBar: View {
     }
 }
 
-#Preview {
-    ProgressView()
-        .preferredColorScheme(.dark)
-}
+//#Preview {
+//    ProgressView(progressValue: 0.5, progressPercent: 70, completedTasks: "asd")
+//        .preferredColorScheme(.dark)
+//}

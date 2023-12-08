@@ -14,6 +14,7 @@
 		5D9C8D6C2B2315C5006A6561 /* ToDoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9C8D6B2B2315C5006A6561 /* ToDoModel.swift */; };
 		5D9C8D6E2B2317BE006A6561 /* taskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9C8D6D2B2317BE006A6561 /* taskView.swift */; };
 		5D9C8D702B232822006A6561 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9C8D6F2B232822006A6561 /* ProgressView.swift */; };
+		5D9C8D722B234537006A6561 /* ToDoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9C8D712B234537006A6561 /* ToDoViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		5D9C8D6B2B2315C5006A6561 /* ToDoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoModel.swift; sourceTree = "<group>"; };
 		5D9C8D6D2B2317BE006A6561 /* taskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskView.swift; sourceTree = "<group>"; };
 		5D9C8D6F2B232822006A6561 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		5D9C8D712B234537006A6561 /* ToDoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 			children = (
 				5D9C8D662B230FD3006A6561 /* App */,
 				5D9C8D6A2B2315A6006A6561 /* Model */,
+				5D9C8D732B235517006A6561 /* ViewModel */,
 				5D9C8D652B230FCE006A6561 /* View */,
 				5D9C8D672B230FDA006A6561 /* Files */,
 				5D9C8D5D2B230F45006A6561 /* Preview Content */,
@@ -106,6 +109,14 @@
 				5D9C8D6B2B2315C5006A6561 /* ToDoModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		5D9C8D732B235517006A6561 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				5D9C8D712B234537006A6561 /* ToDoViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,6 +193,7 @@
 				5D9C8D582B230F44006A6561 /* A33ToDoApp.swift in Sources */,
 				5D9C8D702B232822006A6561 /* ProgressView.swift in Sources */,
 				5D9C8D6C2B2315C5006A6561 /* ToDoModel.swift in Sources */,
+				5D9C8D722B234537006A6561 /* ToDoViewModel.swift in Sources */,
 				5D9C8D6E2B2317BE006A6561 /* taskView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
