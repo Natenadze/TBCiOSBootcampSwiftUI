@@ -24,7 +24,7 @@ import SwiftUI
  */
 
 
-struct ToDoView: View {
+struct ToDoMainView: View {
     
     // MARK: - Properties
     
@@ -37,5 +37,5 @@ struct ToDoView: View {
 
 // MARK: - Preview
 #Preview {
-    ToDoView()
+    ToDoMainView()
 }
