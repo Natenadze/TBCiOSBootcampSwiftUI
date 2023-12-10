@@ -7,10 +7,6 @@
 
 import Foundation
 
-enum Operation {
-    case plus
-    case minus
-}
 
 @Observable
 class ProductViewModel {
@@ -68,12 +64,5 @@ class ProductViewModel {
         }
         
     }
-    
-    //TODO: - ???
-//    func handleIsFavoriteTapped(_ product: Product) {
-//        if let index = allProducts.firstIndex(where: { $0.id == product.id}) {
-//            allProducts[index] = product.toggleIsFavorite()
-//        }
-//    }
     
 }

@@ -48,24 +48,34 @@ extension CartView {
     private var listView: some View {
         List {
             Section {
-                ForEach(viewModel.cartProducts) { item in
+                ForEach(viewModel.cartProducts, id: \.name) { item in
                     HStack {
                         Image(item.image)
                             .resizable()
                             .frame(width: 100, height: 100)
                         
                         VStack(spacing: 20) {
-                            Text(item.name)
+                            HStack {
+                                Text(item.name)
+                                    .font(.title2)
+                                
+                                Spacer()
+                                
+                                Text("\(item.cartQuantity)x")
+                                
+                                Text(String("$\(item.price)"))
+                            }
                             
-                            Text(String("$\(item.price)"))
+                            HStack {
+                                
+                                Spacer()
+                                
+                                Text("sum: $\(String(format: "%.2f", Double(item.cartQuantity) * item.price))")
+                                    .font(.title)
+                            }
                         }
-                        
-                        Spacer()
-                        
-                        Text("sum: $\(String(format: "%.2f", Double(item.cartQuantity) * item.price))")
                     }
                 }
-                //TODO: - ???
                 .onDelete (perform: deleteItems)
             }
             
@@ -79,11 +89,3 @@ extension CartView {
 }
 
 
-// MARK: - Preview
-#Preview {
-    NavigationStack {
-        @State var viewModel = ProductViewModel()
-        CartView()
-            .environment(viewModel)
-    }
-}

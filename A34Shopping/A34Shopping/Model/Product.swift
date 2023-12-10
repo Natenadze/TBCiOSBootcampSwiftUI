@@ -16,17 +16,15 @@ enum Category {
 }
 
 // MARK: - Product
-struct Product: Identifiable {
+struct Product {
     
     // MARK: - Properties
-    let id = UUID()
     let name: String
     let category: Category
     let image: String
     let price: Double
     let stock: Int
     let cartQuantity: Int
-    let isFavorite: Bool
     
     // MARK: - Init
     init(
@@ -35,8 +33,7 @@ struct Product: Identifiable {
         image: String,
         price: Double,
         stock: Int,
-        cartQuantity: Int = 0,
-        isFavorite: Bool = false
+        cartQuantity: Int = 0
     ) {
         self.name = name
         self.category = category
@@ -44,7 +41,6 @@ struct Product: Identifiable {
         self.price = price
         self.stock = stock
         self.cartQuantity = cartQuantity
-        self.isFavorite = isFavorite
     }
     
 }
@@ -52,9 +48,6 @@ struct Product: Identifiable {
 
 // MARK: - extension Methods
 extension Product {
-    func toggleIsFavorite() -> Product {
-        .init(name: name, category: category, image: image, price: price, stock: stock, cartQuantity: cartQuantity, isFavorite: !isFavorite)
-    }
     
     func addProduct() -> Product {
         .init(name: name, category: category, image: image, price: price, stock: stock, cartQuantity: cartQuantity + 1)
@@ -82,7 +75,6 @@ extension Product {
         .init(name: "Pizza",       category: .pizza, image: "pizza", price: 3.99, stock: 12),
         .init(name: "RedBull",     category: .drink, image: "redbull", price: 2.34, stock: 15),
         .init(name: "Water",       category: .drink, image: "water", price: 1.35, stock: 5),
-        .init(name: "Coffee",      category: .drink, image: "coffee", price: 3, stock: 7),
-        
+        .init(name: "Coffee",      category: .drink, image: "coffee", price: 3, stock: 7)
     ]
 }

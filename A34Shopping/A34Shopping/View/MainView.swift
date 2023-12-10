@@ -43,7 +43,7 @@ struct ProductListView: View {
             }
             ScrollView {
                 VStack(spacing: 10) {
-                    ForEach(viewModel.allProducts) { product in
+                    ForEach(viewModel.allProducts, id: \.name) { product in
                         ProductCellView(product: product)
                     }
                 }
@@ -53,8 +53,3 @@ struct ProductListView: View {
     }
 }
 
-
-// MARK: - Preview
-//#Preview {
-//    MainView()
-//}
