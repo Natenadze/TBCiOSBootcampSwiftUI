@@ -20,93 +20,107 @@ struct ProductCellView: View {
     
     // MARK: - Body
     var body: some View {
-        
         ZStack {
             Color.white
             
             VStack {
-                RoundedRectangle(cornerRadius: 2)
-                    .frame(height: 1)
-                    .padding(.horizontal)
-                    .foregroundStyle(.gray)
-                
+                divider
                 HStack(spacing: 20) {
-                    
-                    Image(product.image)
-                        .resizable()
-                        .frame(width: 120, height: 110)
-                    
+                    productImage
                     HStack(alignment: .bottom) {
-                        
-                        VStack(spacing: 30) {
-                            Text(product.name)
-                                .lineLimit(2)
-                                .font(.title2)
-                                .fontWeight(.medium)
-                            
-                            Text(String(product.price))
-                                .font(.title)
-                                .fontWeight(.semibold)
-                        }
-                        
+                        productNameAndPrice
                         Spacer()
-                        
-                        VStack {
-                            
-                            RoundedRectangle(cornerRadius: 10)
-                                .frame(width: 46, height: 36)
-                                .padding(.trailing)
-                                .foregroundStyle(product.cartQuantity == 0 ? .gray : .blue)
-                                .overlay {
-                                    Text("\(product.cartQuantity)")
-                                        .font(.title)
-                                        .foregroundStyle(.white)
-                                        .padding(.trailing)
-                                }
-                            
-                            HStack {
-                                
-                                Circle()
-                                    .foregroundStyle(product.cartQuantity == 0 ? .gray : .blue)
-                                    .frame(width: 36)
-                                    .overlay { Image(systemName: "minus") }
-                                    .onTapGesture {
-                                        viewModel.decreaseProductQuantityAndUpdateCart(product)
-                                        //                                        product.cartQuantity -= 1
-                                    }
-                                    .disabled(product.cartQuantity == 0 ? true : false)
-                                
-                                Circle()
-                                    .foregroundStyle(product.cartQuantity == product.stock ? .gray : .blue)
-                                    .frame(width: 36)
-                                    .padding(.horizontal)
-                                    .overlay { Image(systemName: "plus") }
-                                    .onTapGesture {
-                                        viewModel.increaseProductQuantityAndUpdateCart(product)
-                                        //                                        product.addProduct()
-                                    }
-                                    .disabled(product.cartQuantity == product.stock ? true : false)
-                            }
-                            .foregroundStyle(.white)
-                            .font(.title)
-                        }
-                        
+                        PriceAndActions
                     }
                     .frame(maxWidth: .infinity)
                     .background(.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
             }
-            
-        } // ZStack
-        //            .navigationTitle("Products")
-        
-    } // body
+        }
+    }
     
 }
 
+// MARK: - View Extensions
 
-// MARK: - Preview
-//#Preview {
-//    ProductCellView(image: "banana", title: "Banana", price: 1.35, cartQuantity: 0, stock: 5)
-//}
+// MARK: - Divider
+extension ProductCellView {
+    
+    private var divider: some View {
+        RoundedRectangle(cornerRadius: 2)
+            .frame(height: 1)
+            .padding(.horizontal)
+            .foregroundStyle(.gray)
+    }
+}
+
+// MARK: - productImage
+extension ProductCellView {
+    
+    private var productImage: some View {
+        Image(product.image)
+            .resizable()
+            .frame(width: 120, height: 110)
+    }
+}
+
+// MARK: - productNameAndPrice
+extension ProductCellView {
+    
+    private var productNameAndPrice: some View {
+        VStack(spacing: 30) {
+            Text(product.name)
+                .lineLimit(2)
+                .font(.title2)
+                .fontWeight(.medium)
+            
+            Text(String(product.price))
+                .font(.title)
+                .fontWeight(.semibold)
+        }
+    }
+}
+
+// MARK: - PriceAndActions
+extension ProductCellView {
+  
+    private var PriceAndActions: some View {
+        VStack {
+            
+            RoundedRectangle(cornerRadius: 10)
+                .frame(width: 46, height: 36)
+                .padding(.trailing)
+                .foregroundStyle(product.cartQuantity == 0 ? .gray : .blue)
+                .overlay {
+                    Text("\(product.cartQuantity)")
+                        .font(.title)
+                        .foregroundStyle(.white)
+                        .padding(.trailing)
+                }
+            
+            HStack {
+                
+                Circle()
+                    .foregroundStyle(product.cartQuantity == 0 ? .gray : .blue)
+                    .frame(width: 36)
+                    .overlay { Image(systemName: "minus") }
+                    .onTapGesture {
+                        viewModel.decreaseProductQuantityAndUpdateCart(product)
+                    }
+                    .disabled(product.cartQuantity == 0 ? true : false)
+                
+                Circle()
+                    .foregroundStyle(product.cartQuantity == product.stock ? .gray : .blue)
+                    .frame(width: 36)
+                    .padding(.horizontal)
+                    .overlay { Image(systemName: "plus") }
+                    .onTapGesture {
+                        viewModel.increaseProductQuantityAndUpdateCart(product)
+                    }
+                    .disabled(product.cartQuantity == product.stock ? true : false)
+            }
+            .foregroundStyle(.white)
+            .font(.title)
+        }
+    }
+}

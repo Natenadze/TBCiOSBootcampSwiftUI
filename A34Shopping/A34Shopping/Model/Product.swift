@@ -57,11 +57,15 @@ extension Product {
     }
     
     func addProduct() -> Product {
-        .init(name: name, category: category, image: image, price: price, stock: stock, cartQuantity: cartQuantity + 1, isFavorite: isFavorite)
+        .init(name: name, category: category, image: image, price: price, stock: stock, cartQuantity: cartQuantity + 1)
     }  
     
     func removeProduct() -> Product {
-        .init(name: name, category: category, image: image, price: price, stock: stock, cartQuantity: cartQuantity - 1, isFavorite: isFavorite)
+        .init(name: name, category: category, image: image, price: price, stock: stock, cartQuantity: cartQuantity - 1)
+    }
+    
+    func resetProduct() -> Product {
+        .init(name: name, category: category, image: image, price: price, stock: stock)
     }
 }
 

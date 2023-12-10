@@ -61,6 +61,14 @@ class ProductViewModel {
         }
     }
     
+    func updateAllProducts(for index: Int) {
+        let name = cartProducts[index].name
+        if let index = allProducts.firstIndex(where: { $0.name == name }) {
+            allProducts[index] =  allProducts[index].resetProduct()
+        }
+        
+    }
+    
     //TODO: - ???
 //    func handleIsFavoriteTapped(_ product: Product) {
 //        if let index = allProducts.firstIndex(where: { $0.id == product.id}) {
