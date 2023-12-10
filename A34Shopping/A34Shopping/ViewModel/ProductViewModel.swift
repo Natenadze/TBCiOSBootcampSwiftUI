@@ -60,7 +60,7 @@ class ProductViewModel {
     func updateAllProducts(for index: Int) {
         let name = cartProducts[index].name
         if let index = allProducts.firstIndex(where: { $0.name == name }) {
-            allProducts[index] =  allProducts[index].resetProduct()
+            allProducts[index] = allProducts[index].resetProduct()
         }
         
     }

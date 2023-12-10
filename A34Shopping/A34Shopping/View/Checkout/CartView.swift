@@ -33,7 +33,7 @@ extension CartView {
     
     private var header: some View {
         HStack {
-            Text("Busket")
+            Text("Basket")
                 .padding()
                 .font(.title)
                 .fontWeight(.semibold)
