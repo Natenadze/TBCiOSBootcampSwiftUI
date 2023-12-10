@@ -10,12 +10,13 @@ import SwiftUI
 struct ProductCellView: View {
     
     // MARK: - Properties
-    @State var image: String
-    @State var title: String
-    @State var price: Double
-    @State var cartQuantity: Int
-    @State var stock: Int
+    @Environment(ProductViewModel.self) private var viewModel
+    private var product: Product
     
+    // MARK: - init
+    init(product: Product) {
+        self.product = product
+    }
     
     // MARK: - Body
     var body: some View {
@@ -31,19 +32,19 @@ struct ProductCellView: View {
                 
                 HStack(spacing: 20) {
                     
-                    Image(image)
+                    Image(product.image)
                         .resizable()
                         .frame(width: 120, height: 110)
                     
                     HStack(alignment: .bottom) {
                         
                         VStack(spacing: 30) {
-                            Text(title)
+                            Text(product.name)
                                 .lineLimit(2)
                                 .font(.title2)
                                 .fontWeight(.medium)
                             
-                            Text(String(format: "%.2f$", price))
+                            Text(String(product.price))
                                 .font(.title)
                                 .fontWeight(.semibold)
                         }
@@ -53,11 +54,11 @@ struct ProductCellView: View {
                         VStack {
                             
                             RoundedRectangle(cornerRadius: 10)
-                                .frame(width: 50, height: 40)
+                                .frame(width: 46, height: 36)
                                 .padding(.trailing)
-                                .foregroundStyle(cartQuantity == 0 ? .gray : .blue)
+                                .foregroundStyle(product.cartQuantity == 0 ? .gray : .blue)
                                 .overlay {
-                                    Text("\(cartQuantity)")
+                                    Text("\(product.cartQuantity)")
                                         .font(.title)
                                         .foregroundStyle(.white)
                                         .padding(.trailing)
@@ -66,19 +67,25 @@ struct ProductCellView: View {
                             HStack {
                                 
                                 Circle()
-                                    .foregroundStyle(cartQuantity == 0 ? .gray : .blue)
+                                    .foregroundStyle(product.cartQuantity == 0 ? .gray : .blue)
                                     .frame(width: 36)
                                     .overlay { Image(systemName: "minus") }
-                                    .onTapGesture { cartQuantity -= 1 }
-                                    .disabled(cartQuantity == 0 ? true : false)
+                                    .onTapGesture {
+                                        viewModel.decreaseProductQuantityAndUpdateCart(product)
+                                        //                                        product.cartQuantity -= 1
+                                    }
+                                    .disabled(product.cartQuantity == 0 ? true : false)
                                 
                                 Circle()
-                                    .foregroundStyle(cartQuantity == stock ? .gray : .blue)
+                                    .foregroundStyle(product.cartQuantity == product.stock ? .gray : .blue)
                                     .frame(width: 36)
                                     .padding(.horizontal)
                                     .overlay { Image(systemName: "plus") }
-                                    .onTapGesture { cartQuantity += 1 }
-                                    .disabled(cartQuantity == stock ? true : false)
+                                    .onTapGesture {
+                                        viewModel.increaseProductQuantityAndUpdateCart(product)
+                                        //                                        product.addProduct()
+                                    }
+                                    .disabled(product.cartQuantity == product.stock ? true : false)
                             }
                             .foregroundStyle(.white)
                             .font(.title)
@@ -90,13 +97,16 @@ struct ProductCellView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
             }
+            
         } // ZStack
+        //            .navigationTitle("Products")
+        
     } // body
     
 }
 
 
 // MARK: - Preview
-#Preview {
-    ProductCellView(image: "banana", title: "Banana", price: 1.35, cartQuantity: 0, stock: 5)
-}
+//#Preview {
+//    ProductCellView(image: "banana", title: "Banana", price: 1.35, cartQuantity: 0, stock: 5)
+//}

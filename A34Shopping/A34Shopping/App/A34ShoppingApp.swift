@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct A34ShoppingApp: App {
+    
+    @State private var viewModel = ProductViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            ShoppingView()
+            MainView()
+                .environment(viewModel)
         }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  ShoppingView.swift
+//  MainView.swift
 //  A34Shopping
 //
 //  Created by Davit Natenadze on 09.12.23.
@@ -14,44 +14,52 @@ import SwiftUI
  პროდუქტის რაოდენობის მომატება/მოკლება.
  Optional (მარაგი რომ ამოიწურება, აღარ იყოს შესაძლებელი პროდუქტის კალათაში დამატება).
  ასევე პროდუქტებს ჰქონდეთ image.
+ კალათის ვიუ, სადაც გამოტანილი იქნება პროდუქტის რაოდენობა და ჯამური ღირებულება,
  
  
  მთლიანად პროდუქტის წაშლა.
  Optional (დაამატეთ ფასდაკლების ღილაკი. მაგალითად 20%იანი ფასდაკლების, და მასზე დაკლიკებისას ყველა პროდუქტს დააკლდეს პროცენტის შესაბამისად თანხა).
- კალათის ვიუ, სადაც გამოტანილი იქნება პროდუქტის რაოდენობა და ჯამური ღირებულება,
-
+ 
+ 
  */
 
-struct ShoppingView: View {
+struct MainView: View {
     
-    private var viewModel = ProductViewModel()
+    // MARK: - Properties
+    @Environment(ProductViewModel.self) private var viewModel
+    
     
     // MARK: - Body
     var body: some View {
         
-        
-        
-        ScrollView {
-            VStack(spacing: 10) {
-                ForEach(viewModel.products) { product in
-                    
-                    ProductCellView(
-                        image: product.image,
-                        title: product.name,
-                        price: product.price,
-                        cartQuantity: product.cartQuantity,
-                        stock: product.stock
-                    )
-                    
+        TabView {
+            
+            ScrollView {
+                VStack(spacing: 10) {
+                    ForEach(viewModel.allProducts) { product in
+                        ProductCellView(product: product)
+                    }
                 }
             }
-        } // ScrollView
-        .padding(.horizontal, 8)
+            .padding(.horizontal, 8)
+            .tabItem {
+                Label("Products", systemImage: "house")
+            }
+            
+            
+            CartView()
+                .tabItem {
+                    Image(systemName: "cart.fill")
+                    Text("Cart")
+                }
+            
+        }
+        
     } // body
     
 }
 
 // MARK: - Preview
 #Preview {
-    ShoppingView()
+    MainView()
 }
