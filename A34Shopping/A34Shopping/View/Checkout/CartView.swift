@@ -63,14 +63,14 @@ extension CartView {
                                 
                                 Text("\(item.cartQuantity)x")
                                 
-                                Text(String("$\(item.price)"))
+                                Text("$\((item.isOnSale ? item.discountedPrice : item.price).formattedString)")
                             }
                             
                             HStack {
                                 
                                 Spacer()
                                 
-                                Text("sum: $\(String(format: "%.2f", Double(item.cartQuantity) * item.price))")
+                                Text("sum: $\((Double(item.cartQuantity) * (item.isOnSale ? item.discountedPrice : item.price)).formattedString)")
                                     .font(.title)
                             }
                         }
@@ -81,7 +81,7 @@ extension CartView {
             
             HStack {
                 Spacer()
-                Text("Total: $\(String(format: "%.2f", viewModel.total))")
+                Text("Total: $\(viewModel.total.formattedString)")
                     .font(.title)
             }
         }

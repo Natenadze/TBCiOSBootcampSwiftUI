@@ -40,6 +40,23 @@ struct ProductListView: View {
                     .font(.title)
                     .fontWeight(.semibold)
                 Spacer()
+                
+                Button {
+                    viewModel.applyDiscount()
+                } label: {
+                    RoundedRectangle(cornerRadius: 10)
+                        .frame(width: 46, height: 36)
+                        .padding(.trailing)
+                        .foregroundStyle(viewModel.cartProducts.count > 0 ? .gray : .red)
+                        .overlay {
+                            Text("%")
+                                .font(.title)
+                                .foregroundStyle(.white)
+                                .padding(.trailing)
+                        }
+                }
+                .disabled(viewModel.cartProducts.count > 0 ? true : false)
+
             }
             ScrollView {
                 VStack(spacing: 10) {

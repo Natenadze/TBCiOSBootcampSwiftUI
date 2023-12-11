@@ -30,7 +30,7 @@ struct ProductCellView: View {
                     HStack(alignment: .bottom) {
                         productNameAndPrice
                         Spacer()
-                        PriceAndActions
+                        QuantityAndActions
                     }
                     .frame(maxWidth: .infinity)
                     .background(.white)
@@ -61,6 +61,15 @@ extension ProductCellView {
         Image(product.image)
             .resizable()
             .frame(width: 120, height: 110)
+            .overlay(alignment: .topTrailing) {
+                if product.isOnSale {
+                    Text("Sale")
+                        .padding(2)
+                        .background(Color.red)
+                        .foregroundStyle(.white)
+                        .rotationEffect(.degrees(30))
+                }
+            }
     }
 }
 
@@ -74,9 +83,12 @@ extension ProductCellView {
                 .font(.title2)
                 .fontWeight(.medium)
             
-            Text(String(product.price))
+            Text(
+                String("$\((product.isOnSale ? product.discountedPrice : product.price).formattedString)")
+            )
                 .font(.title)
                 .fontWeight(.semibold)
+                .foregroundStyle(product.isOnSale ? .red : .primary)
         }
     }
 }
@@ -84,7 +96,7 @@ extension ProductCellView {
 // MARK: - PriceAndActions
 extension ProductCellView {
   
-    private var PriceAndActions: some View {
+    private var QuantityAndActions: some View {
         VStack {
             
             RoundedRectangle(cornerRadius: 10)

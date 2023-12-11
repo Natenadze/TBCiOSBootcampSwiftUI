@@ -25,6 +25,11 @@ struct Product {
     let price: Double
     let stock: Int
     let cartQuantity: Int
+    let isOnSale: Bool
+    
+    var discountedPrice: Double {
+        price * 0.8
+    }
     
     // MARK: - Init
     init(
@@ -33,7 +38,8 @@ struct Product {
         image: String,
         price: Double,
         stock: Int,
-        cartQuantity: Int = 0
+        cartQuantity: Int = 0,
+        isOnSale: Bool = false
     ) {
         self.name = name
         self.category = category
@@ -41,6 +47,7 @@ struct Product {
         self.price = price
         self.stock = stock
         self.cartQuantity = cartQuantity
+        self.isOnSale = isOnSale
     }
     
 }
@@ -50,15 +57,19 @@ struct Product {
 extension Product {
     
     func addProduct() -> Product {
-        .init(name: name, category: category, image: image, price: price, stock: stock, cartQuantity: cartQuantity + 1)
-    }  
+        .init(name: name, category: category, image: image, price: price, stock: stock, cartQuantity: cartQuantity + 1, isOnSale: isOnSale)
+    }
     
     func removeProduct() -> Product {
-        .init(name: name, category: category, image: image, price: price, stock: stock, cartQuantity: cartQuantity - 1)
+        .init(name: name, category: category, image: image, price: price, stock: stock, cartQuantity: cartQuantity - 1, isOnSale: isOnSale)
     }
     
     func resetProduct() -> Product {
-        .init(name: name, category: category, image: image, price: price, stock: stock)
+        .init(name: name, category: category, image: image, price: price, stock: stock, isOnSale: isOnSale)
+    }
+    
+    func applyDiscount() -> Product {
+        .init(name: name, category: category, image: image, price: price, stock: stock, cartQuantity: cartQuantity, isOnSale: !isOnSale)
     }
 }
 

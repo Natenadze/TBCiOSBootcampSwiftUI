@@ -16,8 +16,8 @@ class ProductViewModel {
     var cartProducts = [Product]()
     
     var total: Double {
-        cartProducts.reduce(0.0) { $0 + Double($1.cartQuantity) * ($1.price)  }
-    } 
+        cartProducts.reduce(0.0) { $0 + Double($1.cartQuantity) * ($1.isOnSale ? $1.discountedPrice : $1.price)  }
+    }
     
     // MARK: - Methods
     
@@ -57,12 +57,20 @@ class ProductViewModel {
         }
     }
     
+    //
     func updateAllProducts(for index: Int) {
         let name = cartProducts[index].name
         if let index = allProducts.firstIndex(where: { $0.name == name }) {
             allProducts[index] = allProducts[index].resetProduct()
         }
         
+    }
+    
+    func applyDiscount() {
+        for index in 0..<allProducts.count {
+            allProducts[index] = allProducts[index].applyDiscount()
+        }
+
     }
     
 }
