@@ -47,37 +47,7 @@ extension CartView {
     
     private var listView: some View {
         List {
-            Section {
-                ForEach(viewModel.cartProducts, id: \.name) { item in
-                    HStack {
-                        Image(item.image)
-                            .resizable()
-                            .frame(width: 100, height: 100)
-                        
-                        VStack(spacing: 20) {
-                            HStack {
-                                Text(item.name)
-                                    .font(.title2)
-                                
-                                Spacer()
-                                
-                                Text("\(item.cartQuantity)x")
-                                
-                                Text("$\((item.isOnSale ? item.discountedPrice : item.price).formattedString)")
-                            }
-                            
-                            HStack {
-                                
-                                Spacer()
-                                
-                                Text("sum: $\((Double(item.cartQuantity) * (item.isOnSale ? item.discountedPrice : item.price)).formattedString)")
-                                    .font(.title)
-                            }
-                        }
-                    }
-                }
-                .onDelete (perform: deleteItems)
-            }
+            cartItem
             
             HStack {
                 Spacer()
@@ -88,4 +58,48 @@ extension CartView {
     }
 }
 
+// MARK: - Extension cartItem
+extension CartView {
+    
+    private var cartItem: some View {
+        Section {
+            ForEach(viewModel.cartProducts, id: \.name) { item in
+                HStack {
+                    Image(item.image)
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                    
+                    quantityPriceAndSumView(for: item)
+                }
+            }
+            .onDelete (perform: deleteItems)
+        }
+    }
+}
 
+
+// MARK: - extension quantityPriceAndSumView
+extension CartView {
+    
+    private func quantityPriceAndSumView(for item: Product) -> some View {
+        VStack(spacing: 20) {
+            HStack {
+                Text(item.name)
+                    .font(.title2)
+                
+                Spacer()
+                
+                Text("\(item.cartQuantity)x")
+                
+                Text("$\((item.isOnSale ? item.discountedPrice : item.price).formattedString)")
+            }
+            
+            HStack {
+                Spacer()
+                
+                Text("sum: $\((Double(item.cartQuantity) * (item.isOnSale ? item.discountedPrice : item.price)).formattedString)")
+                    .font(.title)
+            }
+        }
+    }
+}

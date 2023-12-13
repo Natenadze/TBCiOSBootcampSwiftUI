@@ -21,7 +21,6 @@ class ProductViewModel {
     
     // MARK: - Methods
     
-        // Plus Actions
     func increaseProductQuantityAndUpdateCart(_ product: Product) {
         if let index = allProducts.firstIndex(where: { $0.name == product.name}) {
             let updatedProduct = allProducts[index].addProduct()
@@ -38,7 +37,7 @@ class ProductViewModel {
         }
     }
 
-    // Minus Actions
+
     func decreaseProductQuantityAndUpdateCart(_ product: Product) {
         if let index = allProducts.firstIndex(where: { $0.name == product.name}) {
             let updatedProduct = allProducts[index].removeProduct()
@@ -57,20 +56,17 @@ class ProductViewModel {
         }
     }
     
-    //
     func updateAllProducts(for index: Int) {
         let name = cartProducts[index].name
         if let index = allProducts.firstIndex(where: { $0.name == name }) {
             allProducts[index] = allProducts[index].resetProduct()
         }
-        
     }
     
     func applyDiscount() {
         for index in 0..<allProducts.count {
             allProducts[index] = allProducts[index].applyDiscount()
         }
-
     }
     
 }
