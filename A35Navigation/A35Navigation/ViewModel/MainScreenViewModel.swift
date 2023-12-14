@@ -10,7 +10,7 @@ import NatenWorking
 
 final class MainScreenViewModel: ObservableObject {
     
-    @Published var destinations = [Destination]()
+    @Published var destinations = [City]()
     
     // MARK: - Init
     init() {
@@ -19,11 +19,11 @@ final class MainScreenViewModel: ObservableObject {
     
     // MARK: - Methods
     func fetchDestinations() {
-        let url = "https://mocki.io/v1/797843c2-fba3-41c0-831a-55eade0d9f04"
+        let url = "https://mocki.io/v1/53d75627-2756-4692-a3d6-6951c9b623df"
         Task {
-            if let fetchedData: [Destination] = try? await NetworkManager().performURLRequest(url) {
+            if let fetchedData: Destination = try? await NetworkManager().performURLRequest(url) {
                 await MainActor.run {
-                    destinations = fetchedData
+                    destinations = fetchedData.destinations
                 }
             }
         }

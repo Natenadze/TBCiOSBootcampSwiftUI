@@ -11,7 +11,6 @@ import SwiftUI
 struct A35NavigationApp: App {
     var body: some Scene {
         WindowGroup {
-            
                 MainScreenView()
         }
     }

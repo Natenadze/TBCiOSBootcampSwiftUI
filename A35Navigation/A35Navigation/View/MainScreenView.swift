@@ -7,40 +7,47 @@
 
 import SwiftUI
 
-/*
-
- Travel Tips
- MainScreen-ზე დაამატეთ ღილაკი Travel Tips-ის, რომელზეც დაჭერისას რანდომად რაღაც სამოგზაუროდ საჭირო Tips შემოგვთავაზებს და ალერტით ვაჩვენებთ.
- 
- ასევე კიდევ ერთი Optional შეგიძლიათ გვერდიდან გვერდზე გადასვლა გააკეთოთ სხვადასხვა ანიმაციებით.
- */
 
 struct MainScreenView: View {
     
     @StateObject private var viewModel = MainScreenViewModel()
     @State var path = NavigationPath()
+    @State private var alertIsShowing: Bool = false
+    @State var alertMessage = ""
     
     
     // MARK: - Mark
     var body: some View {
         NavigationStack(path: $path) {
-        
-                List {
-                    ForEach(viewModel.destinations) { dest in
-                        NavigationLink(dest.id, value: dest)
-                        
-                    }
+            
+            
+            List {
+                ForEach(viewModel.destinations, id: \.cityName) { dest in
+                    NavigationLink(dest.cityName, value: dest)
                 }
-                .navigationDestination(for: Destination.self) { destin in
-                    DestinationDetailScreen(destination: destin, path: $path)
-                }
-                .navigationTitle("Destinations")
+            }
+            .navigationDestination(for: City.self) { city in
+                DestinationDetailScreen(destination: city, path: $path)
+            }
+            .navigationTitle("Destinations")
+            .alert(alertMessage, isPresented: $alertIsShowing) {
                 
-                
+            }
+            
+            
             Menu {
-                Text("tip number 1")
-                Text("tip number 2")
-                Text("tip number 3")
+                Button("Tip 1") {
+                    alertMessage = "Tip 1"
+                    alertIsShowing.toggle()
+                }
+                Button("Tip 2") {
+                    alertMessage = "Tip 2"
+                    alertIsShowing.toggle()
+                }
+                Button("Tip 3") {
+                    alertMessage = "Tip 3"
+                    alertIsShowing.toggle()
+                }
             } label: {
                 Text("Travel tips")
                     .frame(width: 150, height: 40)
@@ -48,6 +55,7 @@ struct MainScreenView: View {
                     .foregroundStyle(.white)
                     .clipShape(.rect(cornerRadius: 10))
             }
+            
         }
     }
     

@@ -8,20 +8,20 @@
 import Foundation
 
 
-struct Destination: Decodable, Identifiable, Hashable {
-    
-    let hotels: String
-    let transport: String
-    let museums: String
-    let hotelImage: String
-    let mustSee: String
-    let id: String
-    
-    enum CodingKeys: String, CodingKey {
-        case hotels, transport, museums, hotelImage
-        case mustSee = "MustSeePlaces"
-        case id
-    }
+struct Destination: Decodable, Hashable {
+    let destinations: [City]
 }
 
+// MARK: - DestinationElement
+struct City: Decodable, Hashable {
+    let cityName: String
+    let mainImage: String
+    let description: String
+    let transport, mustSee, hotels: [CityComponent]
+}
+
+// MARK: - Hotel
+struct CityComponent: Decodable, Hashable {
+    let image, name, description: String
+}
 
