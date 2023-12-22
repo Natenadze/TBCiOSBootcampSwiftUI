@@ -9,8 +9,10 @@ import SwiftUI
 
 struct LongPressGestureView: View {
     
+    // MARK: - properties
     @State private var degrees = 0.0
     
+    // MARK: - body
     var body: some View {
         Image("2")
             .resizable()

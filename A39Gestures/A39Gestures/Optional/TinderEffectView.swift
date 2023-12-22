@@ -27,7 +27,7 @@ struct TinderEffectView: View {
                     .stacked(at: num, in: images.count)
                 }
             }
-            .padding(.bottom)
+            .padding(.bottom, 100)
         }
     }
     
