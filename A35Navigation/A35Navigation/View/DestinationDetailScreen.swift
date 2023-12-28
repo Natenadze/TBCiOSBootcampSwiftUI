@@ -49,7 +49,6 @@ struct DestinationDetailScreen: View {
             .font(.title)
             .foregroundStyle(.white)
         }
-       
     }
     
 }
