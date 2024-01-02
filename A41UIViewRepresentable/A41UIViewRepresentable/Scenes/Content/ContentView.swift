@@ -9,36 +9,45 @@ import SwiftUI
 
 struct ContentView: View {
     
-    // MARK: - properties
+    // MARK: - Properties
     @StateObject private var viewModel = ContentViewModel()
     @State private var selectedFontSize: CGFloat = 16
     
-    // MARK: - body
+    // MARK: - Body
     var body: some View {
         NavigationStack {
             newsList
                 .toolbar { toolbarItem() }
+                .navigationDestination(isPresented: $viewModel.newsSelected) {
+                    if let selectedNews = viewModel.selectedNews {
+                        NewsDetailViewControllerRepresentable(viewModel: NewsDetailViewModel(article: selectedNews))
+                    }
+                }
         }
     }
 }
 
-// MARK: - Extension Components
+// MARK: - Views
 private extension ContentView {
-    
-    var newsList: some View {
+    private var newsList: some View {
         VStack {
             if viewModel.allNews.isEmpty {
                 ProgressView().scaleEffect(2.5)
             } else {
-                UITableViewRepresentable(newsTitles: viewModel.allNews.map(\.title), fontSize: selectedFontSize)
-                    .accessibilityLabel("World news list. You have \(viewModel.allNews.count) news Today")
+                NewsTableViewRepresentable(
+                    newsTitles: viewModel.allNews.map(\.title),
+                    fontSize: selectedFontSize
+                ) { news in
+                    viewModel.newsSelected(news)
+                }
+                .accessibilityLabel("World news list. You have \(viewModel.allNews.count) news Today")
             }
         }
         .navigationTitle("World News")
         .padding()
     }
     
-    func toolbarItem() -> some ToolbarContent {
+    private func toolbarItem() -> some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             Menu {
                 Button("Small") { selectedFontSize = 10 }
@@ -53,7 +62,7 @@ private extension ContentView {
     }
 }
 
-
+// MARK: - Preview
 #Preview {
     ContentView()
 }
